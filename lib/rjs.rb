@@ -14,8 +14,10 @@ ActiveSupport.on_load(:action_controller) do
       @@debug_rjs = false
     end
 
-    ActionView::Helpers.send(:include, ActionView::Helpers::PrototypeHelper)
-    ActionView::Helpers.send(:include, ActionView::Helpers::ScriptaculousHelper)
+    ActionView::Helpers.module_eval do
+      include ActionView::Helpers::PrototypeHelper
+      include ActionView::Helpers::ScriptaculousHelper
+    end
 
     ActionView::Template.register_template_handler :rjs, ActionView::Template::Handlers::RJS.new
   end
