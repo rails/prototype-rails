@@ -14,7 +14,7 @@ ActiveSupport.on_load(:action_controller) do
       @@debug_rjs = false
     end
 
-    ActionView::Helpers.module_eval do
+    ActionView::Base.class_eval do
       include ActionView::Helpers::PrototypeHelper
       include ActionView::Helpers::ScriptaculousHelper
     end
