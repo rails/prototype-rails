@@ -1,0 +1,7 @@
+RJS is being extracted here for Rails 3.1.
+
+New applications using this may want to add
+
+    config.action_view.debug_rjs = true
+
+to their config/environments/development.rb.
