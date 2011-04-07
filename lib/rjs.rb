@@ -11,7 +11,7 @@ ActiveSupport.on_load(:action_controller) do
 
     ActionView::Base.class_eval do
       cattr_accessor :debug_rjs
-      @@debug_rjs = false
+      self.debug_rjs = false
     end
 
     ActionView::Base.class_eval do
