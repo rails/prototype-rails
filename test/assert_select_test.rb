@@ -1,24 +1,9 @@
 # encoding: utf-8
-#--
-# Copyright (c) 2006 Assaf Arkin (http://labnotes.org)
-# Under MIT and/or CC By license.
-#++
 
 require 'abstract_unit'
-require 'controller/fake_controllers'
-
-require 'action_mailer'
-ActionMailer::Base.view_paths = FIXTURE_LOAD_PATH
 
 class AssertSelectTest < ActionController::TestCase
   Assertion = ActiveSupport::TestCase::Assertion
-
-  class AssertSelectMailer < ActionMailer::Base
-    def test(html)
-      mail :body => html, :content_type => "text/html",
-        :subject => "Test e-mail", :from => "test@test.host", :to => "test <test@test.host>"
-    end
-  end
 
   class AssertSelectController < ActionController::Base
     def rjs()
@@ -34,18 +19,6 @@ class AssertSelectTest < ActionController::TestCase
   end
 
   tests AssertSelectController
-
-  def setup
-    super
-    ActionMailer::Base.delivery_method = :test
-    ActionMailer::Base.perform_deliveries = true
-    ActionMailer::Base.deliveries = []
-  end
-
-  def teardown
-    super
-    ActionMailer::Base.deliveries.clear
-  end
 
   def assert_failure(message, &block)
     e = assert_raise(Assertion, &block)
