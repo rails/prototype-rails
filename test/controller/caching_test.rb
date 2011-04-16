@@ -1,11 +1,16 @@
 require 'fileutils'
 require 'abstract_unit'
-require 'active_record_unit'
 
 CACHE_DIR = 'test_cache'
 # Don't change '/../temp/' cavalierly or you might hose something you don't want hosed
 FILE_STORE_PATH = File.join(File.dirname(__FILE__), '/../temp/', CACHE_DIR)
 ActionController::Base.page_cache_directory = FILE_STORE_PATH
+
+class CachingController < ActionController::Base
+  abstract!
+
+  self.cache_store = :file_store, FILE_STORE_PATH
+end
 
 class FunctionalCachingController < CachingController
   def js_fragment_cached_with_partial

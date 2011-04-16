@@ -1,12 +1,18 @@
-# encoding: utf-8
-
 require 'abstract_unit'
 
 class AssertSelectTest < ActionController::TestCase
   Assertion = ActiveSupport::TestCase::Assertion
 
   class AssertSelectController < ActionController::Base
-    def rjs()
+    def response_with=(content)
+      @content = content
+    end
+
+    def response_with(&block)
+      @update = block
+    end
+
+    def rjs
       render :update do |page|
         @update.call page
       end

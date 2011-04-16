@@ -1,6 +1,4 @@
-# encoding: utf-8
 require 'abstract_unit'
-require 'controller/fake_models'
 
 class TestController < ActionController::Base
 end
