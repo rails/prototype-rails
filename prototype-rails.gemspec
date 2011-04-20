@@ -1,8 +1,8 @@
 Gem::Specification.new do |spec|
-  spec.name     = 'rjs'
+  spec.name     = 'prototype-rails'
   spec.version  = '0.1.beta'
-  spec.summary  = 'RJS for Ruby on Rails'
-  spec.homepage = 'http://github.com/fxn/rjs'
+  spec.summary  = 'Prototype integration for Ruby on Rails (including RJS)'
+  spec.homepage = 'http://github.com/rails/prototype-rails'
   spec.author   = 'Xavier Noria'
   spec.email    = 'fxn@hashref.com'
 
