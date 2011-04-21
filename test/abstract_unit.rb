@@ -18,7 +18,7 @@ require 'action_controller'
 require 'action_view'
 require 'action_view/testing/resolvers'
 
-require 'rjs'
+require 'prototype-rails'
 
 FIXTURE_LOAD_PATH = File.join(File.dirname(__FILE__), 'fixtures')
 FIXTURES = Pathname.new(FIXTURE_LOAD_PATH)
