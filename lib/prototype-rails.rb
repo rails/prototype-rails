@@ -1,14 +1,14 @@
 ActiveSupport.on_load(:action_controller) do
-  require 'rjs/selector_assertions'
-  require 'rjs/renderers'
+  require 'prototype-rails/selector_assertions'
+  require 'prototype-rails/renderers'
 end
 
 ActiveSupport.on_load(:action_view) do
   require 'action_view/helpers/prototype_helper'
   require 'action_view/helpers/scriptaculous_helper'
   require 'action_view/template/handlers/rjs'
-  require 'rjs/javascript_helper'
-  require 'rjs/rendering'
+  require 'prototype-rails/javascript_helper'
+  require 'prototype-rails/rendering'
   
   ActionView::Base.class_eval do
     cattr_accessor :debug_rjs
