@@ -1,7 +1,20 @@
-RJS is being extracted here for Rails 3.1.
+prototype-rails provides Prototype, Scriptaculous, and RJS for Rails 3.1.
 
-New applications using this may want to add
+Prototype and Scriptaculous are provided via the asset pipeline and you
+do *not* need to copy their files into your application. Rails will get
+them from prototype-rails automatically.
+
+You may want to add them to you app/assets/javascripts/application.js:
+
+    //= require prototype
+    //= require prototype_ujs
+    //= require effects
+    //= require dragdrop
+    //= require controls
+
+New applications using this may also want to add
 
     config.action_view.debug_rjs = true
 
 to their config/environments/development.rb.
+
