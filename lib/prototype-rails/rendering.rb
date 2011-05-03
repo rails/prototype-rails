@@ -1,6 +1,6 @@
-require 'action_view/rendering'
+require 'action_view/helpers/rendering_helper'
 
-ActionView::Rendering.module_eval do
+ActionView::Helpers::RenderingHelper.module_eval do
   def render_with_update(options = {}, locals = {}, &block)
     if options == :update
       update_page(&block)
