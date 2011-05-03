@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name     = 'prototype-rails'
-  spec.version  = '0.1'
+  spec.version  = '0.2'
   spec.summary  = 'Prototype, Scriptaculous, and RJS for Ruby on Rails'
   spec.homepage = 'http://github.com/rails/prototype-rails'
   spec.author   = 'Xavier Noria'
