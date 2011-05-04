@@ -4,7 +4,7 @@ Prototype and Scriptaculous are provided via the asset pipeline and you
 do *not* need to copy their files into your application. Rails will get
 them from prototype-rails automatically.
 
-You may want to add them to you app/assets/javascripts/application.js:
+You may want to add them to your app/assets/javascripts/application.js:
 
     //= require prototype
     //= require prototype_ujs
