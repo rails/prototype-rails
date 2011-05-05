@@ -1,19 +1,19 @@
 GIT
   remote: git://github.com/brynary/rack-test.git
-  revision: cbbec1b5013473cf99b2fabe92fdb3c9795c5a0a
+  revision: 4f2fc0f0afe702f7a6bc23fb57f1168bcc371703
   specs:
-    rack-test (0.5.7)
+    rack-test (0.6.0)
       rack (>= 1.0)
 
 GIT
   remote: git://github.com/rack/rack.git
-  revision: 37d2b2fe40667eb0a7ff89111713832be934aa9f
+  revision: 09433a26a9e6d3d8921432cf1fcafc871e543690
   specs:
-    rack (1.2.1)
+    rack (1.3.0.beta)
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 9971387a3b4ca0c03b9bd32de7dc417c5399fdd7
+  revision: bd4831d6995102f6003d401b2f257c8f8e553d7b
   specs:
     actionmailer (3.1.0.beta)
       actionpack (= 3.1.0.beta)
@@ -24,11 +24,12 @@ GIT
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       i18n (~> 0.6.0beta1)
-      rack (~> 1.2.1)
-      rack-cache (~> 1.0.0)
+      rack (~> 1.3.0.beta)
+      rack-cache (~> 1.0.1)
       rack-mount (~> 0.7.2)
-      rack-test (~> 0.5.7)
-      tzinfo (~> 0.3.23)
+      rack-test (~> 0.6.0)
+      sprockets (~> 2.0.0.beta.2)
+      tzinfo (~> 0.3.27)
     activemodel (3.1.0.beta)
       activesupport (= 3.1.0.beta)
       bcrypt-ruby (~> 2.1.4)
@@ -37,13 +38,13 @@ GIT
     activerecord (3.1.0.beta)
       activemodel (= 3.1.0.beta)
       activesupport (= 3.1.0.beta)
-      arel (~> 2.0.2)
-      tzinfo (~> 0.3.23)
+      arel (~> 2.1.0)
+      tzinfo (~> 0.3.27)
     activeresource (3.1.0.beta)
       activemodel (= 3.1.0.beta)
       activesupport (= 3.1.0.beta)
     activesupport (3.1.0.beta)
-      multi_json (~> 1.0.0)
+      multi_json (~> 1.0)
     rails (3.1.0.beta)
       actionmailer (= 3.1.0.beta)
       actionpack (= 3.1.0.beta)
@@ -57,15 +58,16 @@ GIT
       activesupport (= 3.1.0.beta)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
-      thor (~> 0.14.4)
+      thor (~> 0.14.6)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    arel (2.0.9)
+    arel (2.1.0)
     bcrypt-ruby (2.1.4)
     builder (3.0.0)
     erubis (2.7.0)
+    hike (1.0.0)
     i18n (0.6.0beta1)
     mail (2.3.0)
       i18n (>= 0.4.0)
@@ -73,7 +75,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.16)
     mocha (0.9.12)
-    multi_json (1.0.0)
+    multi_json (1.0.1)
     polyglot (0.3.1)
     rack-cache (1.0.1)
       rack (>= 0.4)
@@ -82,7 +84,12 @@ GEM
     rack-ssl (1.3.2)
       rack
     rake (0.8.7)
+    sprockets (2.0.0.beta.2)
+      hike (~> 1.0)
+      rack (~> 1.0)
+      tilt (~> 1.0)
     thor (0.14.6)
+    tilt (1.3)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.27)
