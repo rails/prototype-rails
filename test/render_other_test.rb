@@ -1,5 +1,6 @@
 require 'abstract_unit'
 require 'pathname'
+require 'securerandom'
 
 ActionController.add_renderer :simon do |says, options|
   self.content_type  = Mime::TEXT
@@ -161,7 +162,7 @@ class RenderOtherTest < ActionController::TestCase
   end
 
   def test_enum_rjs_test
-    ActiveSupport::SecureRandom.stubs(:base64).returns("asdf")
+    SecureRandom.stubs(:base64).returns("asdf")
     get :enum_rjs_test
     body = %{
       $$(".product").each(function(value, index) {
