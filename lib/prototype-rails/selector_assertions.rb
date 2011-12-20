@@ -1,3 +1,4 @@
+require 'active_support/core_ext/module/aliasing'
 require 'action_controller/vendor/html-scanner'
 require 'action_dispatch/testing/assertions'
 require 'action_dispatch/testing/assertions/selector'
