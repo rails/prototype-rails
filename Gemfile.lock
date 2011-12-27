@@ -1,3 +1,9 @@
+PATH
+  remote: .
+  specs:
+    prototype-rails (3.2.0.rc1)
+      rails (~> 3.2.0.rc)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -88,4 +94,4 @@ PLATFORMS
 
 DEPENDENCIES
   mocha
-  rails (= 3.2.0.rc1)
+  prototype-rails!
