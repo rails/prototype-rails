@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require 'abstract_unit'
 
 class AssertSelectTest < ActionController::TestCase
@@ -47,7 +49,7 @@ class AssertSelectTest < ActionController::TestCase
       assert_select "#2"
     end
   end
-  
+
   # With multiple results.
   def test_assert_select_from_rjs_with_multiple_results
     render_rjs do |page|
@@ -121,19 +123,22 @@ class AssertSelectTest < ActionController::TestCase
 
   def test_assert_select_rjs_with_unicode
     # Test that non-ascii characters (which are converted into \uXXXX in RJS) are decoded correctly.
+
+    unicode = "\343\203\201\343\202\261\343\203\203\343\203\210"
     render_rjs do |page|
-      page.replace "test", "<div id=\"1\">\343\203\201\343\202\261\343\203\203\343\203\210</div>"
+      page.replace "test", %(<div id="1">#{unicode}</div>)
     end
+
     assert_select_rjs do
       str = "#1"
-      assert_select str, :text => "\343\203\201\343\202\261\343\203\203\343\203\210"
-      assert_select str, "\343\203\201\343\202\261\343\203\203\343\203\210"
+      assert_select str, :text => unicode
+      assert_select str, unicode
       if str.respond_to?(:force_encoding)
         assert_select str, /\343\203\201..\343\203\210/u
         assert_raise(Assertion) { assert_select str, /\343\203\201.\343\203\210/u }
       else
-        assert_select str, Regexp.new("\343\203\201..\343\203\210",0,'U')
-        assert_raise(Assertion) { assert_select str, Regexp.new("\343\203\201.\343\203\210",0,'U') }
+        assert_select str, Regexp.new("\343\203\201..\343\203\210", 0, 'U')
+        assert_raise(Assertion) { assert_select str, Regexp.new("\343\203\201.\343\203\210", 0, 'U') }
       end
     end
   end
