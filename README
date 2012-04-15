@@ -12,9 +12,3 @@ You may want to add them to your app/assets/javascripts/application.js:
     //= require dragdrop
     //= require controls
 
-New applications using this may also want to add
-
-    config.action_view.debug_rjs = true
-
-to their config/environments/development.rb.
-
