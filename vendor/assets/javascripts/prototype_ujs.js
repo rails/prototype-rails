@@ -90,7 +90,7 @@
       params = {};
     }
 
-    new Ajax.Request(url, {
+    options = {
       method: method,
       parameters: params,
       evalScripts: true,
@@ -99,7 +99,11 @@
       onComplete: function(response) { element.fire("ajax:complete", response); },
       onSuccess:  function(response) { element.fire("ajax:success",  response); },
       onFailure:  function(response) { element.fire("ajax:failure",  response); }
-    });
+    }
+    if (element.hasAttribute('update'))
+      new Ajax.Updater(element.readAttribute('update'), url, options);
+    else
+      new Ajax.Request(url, options);
 
     element.fire("ajax:after");
   }
