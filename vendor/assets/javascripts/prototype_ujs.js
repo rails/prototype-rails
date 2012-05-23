@@ -147,17 +147,19 @@
   }
 
   document.on('click', 'a[data-confirm], a[data-remote], a[data-method]', function(event, link) {
-    if (!allowAction(link)) {
-      event.stop();
-      return false;
-    }
+    if (Event.isLeftClick(event)) {
+      if (!allowAction(link)) {
+        event.stop();
+        return false;
+      }
 
-    if (link.readAttribute('data-remote')) {
-      handleRemote(link);
-      event.stop();
-    } else if (link.readAttribute('data-method')) {
-      handleMethod(link);
-      event.stop();
+      if (link.readAttribute('data-remote')) {
+        handleRemote(link);
+        event.stop();
+      } else if (link.readAttribute('data-method')) {
+        handleMethod(link);
+        event.stop();
+      }
     }
   });
 
