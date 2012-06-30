@@ -3,6 +3,7 @@ require 'action_view/helpers/scriptaculous_helper'
 require 'action_view/template/handlers/rjs'
 require 'prototype-rails/javascript_helper'
 require 'prototype-rails/rendering'
+require 'prototype-rails/json/literal'
 
 ActionView::Base.class_eval do
   cattr_accessor :debug_rjs
