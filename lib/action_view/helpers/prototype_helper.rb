@@ -260,7 +260,7 @@ module ActionView
           # Returns an object whose <tt>to_json</tt> evaluates to +code+. Use this to pass a literal JavaScript
           # expression as an argument to another JavaScriptGenerator method.
           def literal(code)
-            ::ActiveSupport::JSON::Variable.new(code.to_s)
+            ::PrototypeRails::JSON::Literal.new(code)
           end
 
           # Returns a collection reference by finding it through a CSS +pattern+ in the DOM. This collection can then be
@@ -730,7 +730,7 @@ module ActionView
 
     class JavaScriptVariableProxy < JavaScriptProxy #:nodoc:
       def initialize(generator, variable)
-        @variable = ::ActiveSupport::JSON::Variable.new(variable)
+        @variable = ::PrototypeRails::JSON::Literal.new(variable)
         @empty    = true # only record lines if we have to.  gets rid of unnecessary linebreaks
         super(generator)
       end
@@ -773,7 +773,7 @@ module ActionView
       end
 
       def grep(variable, pattern, &block)
-        enumerate :grep, :variable => variable, :return => true, :method_args => [::ActiveSupport::JSON::Variable.new(pattern.inspect)], :yield_args => %w(value index), &block
+        enumerate :grep, :variable => variable, :return => true, :method_args => [::PrototypeRails::JSON::Literal.new(pattern.inspect)], :yield_args => %w(value index), &block
       end
 
       def in_groups_of(variable, number, fill_with = nil)
@@ -797,7 +797,7 @@ module ActionView
         append_enumerable_function!("zip(#{arguments_for_call arguments}")
         if block
           function_chain[-1] += ", function(array) {"
-          yield ::ActiveSupport::JSON::Variable.new('array')
+          yield ::PrototypeRails::JSON::Literal.new('array')
           add_return_statement!
           @generator << '});'
         else
