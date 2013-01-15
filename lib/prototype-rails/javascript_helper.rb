@@ -35,7 +35,7 @@ ActionView::Helpers::JavaScriptHelper.module_eval do
     function = block_given? ? update_page(&block) : args[0] || ''
     onclick = "#{"#{html_options[:onclick]}; " if html_options[:onclick]}#{function};"
 
-    tag(:input, html_options.merge(:type => 'button', :value => name, :onclick => onclick))
+    tag(:input, html_options.merge(:type => 'button', :value => name, :onclick => escape_once(onclick)), false, false)
   end
 
   #   link_to_function("Show me more", nil, :id => "more_link") do |page|
@@ -62,6 +62,6 @@ ActionView::Helpers::JavaScriptHelper.module_eval do
     onclick = "#{"#{html_options[:onclick]}; " if html_options[:onclick]}#{function}; return false;"
     href = html_options[:href] || '#'
 
-    content_tag(:a, name, html_options.merge(:href => href, :onclick => onclick))
+    content_tag(:a, name, html_options.merge(:href => href, :onclick => escape_once(onclick)), false)
   end
 end
