@@ -32,6 +32,7 @@ ActionView::Helpers::JavaScriptHelper.module_eval do
 
     function = block_given? ? update_page(&block) : args[0] || ''
     onclick = "#{"#{html_options[:onclick]}; " if html_options[:onclick]}#{function};"
+    onclick = onclick.html_safe if html_options[:onclick].html_safe?
 
     tag(:input, html_options.merge(:type => 'button', :value => name, :onclick => onclick))
   end
@@ -58,6 +59,8 @@ ActionView::Helpers::JavaScriptHelper.module_eval do
 
     function = block_given? ? update_page(&block) : args[0] || ''
     onclick = "#{"#{html_options[:onclick]}; " if html_options[:onclick]}#{function}; return false;"
+    onclick = onclick.html_safe if html_options[:onclick].html_safe?
+
     href = html_options[:href] || '#'
 
     content_tag(:a, name, html_options.merge(:href => href, :onclick => onclick))

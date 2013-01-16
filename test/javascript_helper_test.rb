@@ -29,6 +29,16 @@ class JavaScriptHelperTest < ActionView::TestCase
     assert_dom_equal %(<a href="#" onclick="Element.update(&quot;header&quot;, &quot;\\u003Ch1\\u003EGreetings\\u003C/h1\\u003E&quot;);; return false;">Greet me!</a>), html
   end
 
+  def test_link_to_function_with_html_safe_onclick
+    assert_dom_equal %(<a href="#" onclick="alert('Hello world!'); ; return false;">Greeting</a>),
+      link_to_function( "Greeting", onclick: "alert('Hello world!')".html_safe)
+  end
+
+  def test_link_to_function_without_html_safe_onclick
+    assert_dom_equal %(<a href="#" onclick="alert(&#x27;Hello world!&#x27;); ; return false;">Greeting</a>),
+      link_to_function( "Greeting", onclick: "alert('Hello world!')")
+  end
+
   def test_link_to_function_with_rjs_block_and_options
     html = link_to_function( "Greet me!", :class => "updater" ) do |page|
       page.replace_html 'header', "<h1>Greetings</h1>"
@@ -50,6 +60,16 @@ class JavaScriptHelperTest < ActionView::TestCase
       page.replace_html 'header', "<h1>Greetings</h1>"
     end
     assert_dom_equal %(<input type="button" onclick="Element.update(&quot;header&quot;, &quot;\\u003Ch1\\u003EGreetings\\u003C/h1\\u003E&quot;);;" value="Greet me!" />), html
+  end
+
+  def test_button_to_function_with_html_safe_onclick
+    assert_dom_equal %(<input type="button" onclick="alert('Hello world!'); ;" value="Greeting" />),
+      button_to_function( "Greeting", onclick: "alert('Hello world!')".html_safe)
+  end
+
+  def test_button_to_function_without_html_safe_onclick
+    assert_dom_equal %(<input type="button" onclick="alert(&#x27;Hello world!&#x27;); ;" value="Greeting" />),
+      button_to_function( "Greeting", onclick: "alert('Hello world!')")
   end
 
   def test_button_to_function_with_rjs_block_and_options
