@@ -10,4 +10,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency('rails', '~> 3.2')
   spec.add_development_dependency('mocha')
+  spec.license = "MIT"
 end
