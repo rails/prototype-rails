@@ -13,7 +13,7 @@ ActionView::Base.class_eval do
   include ActionView::Helpers::PrototypeHelper
   include ActionView::Helpers::ScriptaculousHelper
 end
-if Rails.env.test?
+if ActionView::TestCase.present?
   ActionView::TestCase.class_eval do
     include ActionView::Helpers::PrototypeHelper
     include ActionView::Helpers::ScriptaculousHelper
