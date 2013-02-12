@@ -13,10 +13,10 @@ ActionView::Base.class_eval do
   include ActionView::Helpers::PrototypeHelper
   include ActionView::Helpers::ScriptaculousHelper
 end
-
-ActionView::TestCase.class_eval do
-  include ActionView::Helpers::PrototypeHelper
-  include ActionView::Helpers::ScriptaculousHelper
+if ActionView::TestCase.present?
+  ActionView::TestCase.class_eval do
+    include ActionView::Helpers::PrototypeHelper
+    include ActionView::Helpers::ScriptaculousHelper
+  end
 end
-
 ActionView::Template.register_template_handler :rjs, ActionView::Template::Handlers::RJS.new
