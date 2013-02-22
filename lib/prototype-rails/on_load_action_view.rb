@@ -14,7 +14,7 @@ ActionView::Base.class_eval do
   include ActionView::Helpers::ScriptaculousHelper
 end
 
-if ActionView::TestCase.present?
+if defined? ActionView::TestCase
   ActionView::TestCase.class_eval do
     include ActionView::Helpers::PrototypeHelper
     include ActionView::Helpers::ScriptaculousHelper
