@@ -162,17 +162,15 @@ class RenderOtherTest < ActionController::TestCase
   end
 
   def test_enum_rjs_test
-    SecureRandom.stubs(:base64).returns("asdf")
-    get :enum_rjs_test
-    body = %{
-      $$(".product").each(function(value, index) {
+    pre = %[$$(".product").each(function(value, index) {
       new Effect.Highlight(element,{});
       new Effect.Highlight(value,{});
-      Sortable.create(value, {onUpdate:function(){new Ajax.Request('/render_other_test/test/order', {asynchronous:true, evalScripts:true, parameters:Sortable.serialize(value) + '&authenticity_token=' + encodeURIComponent('asdf')})}});
-      new Draggable(value, {});
-      });
-    }.gsub(/^      /, '').strip
-    assert_equal body, @response.body
+      Sortable.create(value, {onUpdate:function(){new Ajax.Request('/render_other_test/test/order', {asynchronous:true, evalScripts:true, parameters:Sortable.serialize(value) + '&authenticity_token=' + encodeURIComponent('].gsub(/^\s+/, '')
+    post = %[')})}});\nnew Draggable(value, {});\n});]
+
+    get :enum_rjs_test
+    assert_match pre, @response.body
+    assert_match post, @response.body
   end
 
   def test_explicitly_rendering_an_html_template_with_implicit_html_template_renders_should_be_possible_from_an_rjs_template
