@@ -8,12 +8,6 @@ require 'action_controller'
 require 'action_view'
 require 'action_view/testing/resolvers'
 
-module Rails
-  def self.env
-    ActiveSupport::StringInquirer.new("test")
-  end
-end
-
 require 'prototype-rails/on_load_action_controller'
 require 'prototype-rails/on_load_action_view'
 
