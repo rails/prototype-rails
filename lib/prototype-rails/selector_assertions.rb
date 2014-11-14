@@ -1,5 +1,4 @@
 require 'active_support/core_ext/module/aliasing'
-require 'action_view/vendor/html-scanner'
 require 'action_dispatch/testing/assertions'
 require 'action_dispatch/testing/assertions/selector'
 
@@ -8,7 +7,8 @@ require 'action_dispatch/testing/assertions/selector'
 # Under MIT and/or CC By license.
 #++
 
-ActionDispatch::Assertions::SelectorAssertions.module_eval do
+module PrototypeRails
+  module SelectorAssertions
   # Selects content from the RJS response.
   #
   # === Narrowing down
@@ -193,7 +193,6 @@ ActionDispatch::Assertions::SelectorAssertions.module_eval do
       response_from_page_without_rjs
     end
   end
-  alias_method_chain :response_from_page, :rjs
 
   # Unescapes a RJS string.
   def unescape_rjs(rjs_string)
@@ -207,4 +206,5 @@ ActionDispatch::Assertions::SelectorAssertions.module_eval do
     unescaped.gsub!(RJS_PATTERN_UNICODE_ESCAPED_CHAR) {|u| [$1.hex].pack('U*')}
     unescaped
   end
+end
 end
