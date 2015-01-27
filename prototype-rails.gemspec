@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.author   = 'Xavier Noria'
   spec.email    = 'fxn@hashref.com'
 
-  spec.files = %w(README Rakefile Gemfile MIT-LICENSE) + Dir['lib/**/*', 'vendor/**/*', 'test/**/*']
+  spec.files = %w(README.md Rakefile Gemfile MIT-LICENSE) + Dir['lib/**/*', 'vendor/**/*', 'test/**/*']
 
   spec.add_dependency('rails', '~> 4.0')
   spec.add_development_dependency('mocha')
