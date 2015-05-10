@@ -104,6 +104,18 @@ class PrototypeHelperTest < PrototypeHelperBaseTest
     assert_equal javascript_tag(create_generator(&block).to_s, {:defer => 'true'}), update_page_tag({:defer => 'true'}, &block)
   end
 
+  def test_update_page_html_tag
+    block = Proc.new { |page| page.hide('cancel-commit') }
+    input_tag = submit_tag('Save', :onclick => 'Element.hide("cancel-commit");')
+    assert_equal input_tag, submit_tag('Save', :onclick => update_page(&block))
+  end
+
+  def test_update_page_link_to_function
+    block = Proc.new { |page| page.hide('cancel-commit') }
+    link_tag = link_to_function('Save', 'Element.hide("cancel-commit");')
+    assert_equal link_tag, link_to_function('Save', update_page(&block))
+  end
+
   def test_remote_function
     res = remote_function(:url => authors_path, :with => "'author[name]='+$F('author_name')+'&author[dob]='+$F('author_dob')")
     assert_equal "new Ajax.Request('/authors', {asynchronous:true, evalScripts:true, parameters:'author[name]='+$F('author_name')+'&author[dob]='+$F('author_dob')})", res

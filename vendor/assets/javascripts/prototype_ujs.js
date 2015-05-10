@@ -1,4 +1,14 @@
 (function() {
+  Ajax.Responders.register({
+    onCreate: function(request) {
+      var token = $$('meta[name=csrf-token]')[0];
+      if (token) {
+        if (!request.options.requestHeaders) request.options.requestHeaders = {};
+        request.options.requestHeaders['X-CSRF-Token'] = token.readAttribute('content');
+      }
+    }
+  });
+
   // Technique from Juriy Zaytsev
   // http://thinkweb2.com/projects/prototype/detecting-event-support-without-browser-sniffing/
   function isEventSupported(eventName) {
@@ -130,11 +140,24 @@
 
   function disableFormElements(form) {
     form.select('input[type=submit][data-disable-with]').each(function(input) {
+      if (input.name == form.retrieve('rails:submit-button')) {
+        if (window.hiddenCommit) {
+          window.hiddenCommit.setAttribute('name', input.name);
+          window.hiddenCommit.setAttribute('value', input.value);
+        } else {
+          hiddenCommit = document.createElement('input');
+          hiddenCommit.type = 'hidden';
+          hiddenCommit.value = input.value;
+          hiddenCommit.name = input.name;
+          form.appendChild(hiddenCommit);
+        }
+      }
+
       input.store('rails:original-value', input.getValue());
       input.setValue(input.readAttribute('data-disable-with')).disable();
     });
   }
-  
+
   function enableFormElements(form) {
     form.select('input[type=submit][data-disable-with]').each(function(input) {
       input.setValue(input.retrieve('rails:original-value')).enable();
@@ -147,17 +170,19 @@
   }
 
   document.on('click', 'a[data-confirm], a[data-remote], a[data-method]', function(event, link) {
-    if (!allowAction(link)) {
-      event.stop();
-      return false;
-    }
+    if (Event.isLeftClick(event)) {
+      if (!allowAction(link)) {
+        event.stop();
+        return false;
+      }
 
-    if (link.readAttribute('data-remote')) {
-      handleRemote(link);
-      event.stop();
-    } else if (link.readAttribute('data-method')) {
-      handleMethod(link);
-      event.stop();
+      if (link.readAttribute('data-remote')) {
+        handleRemote(link);
+        event.stop();
+      } else if (link.readAttribute('data-method')) {
+        handleMethod(link);
+        event.stop();
+      }
     }
   });
 
@@ -185,7 +210,7 @@
   document.on('ajax:create', 'form', function(event, form) {
     if (form == event.findElement()) disableFormElements(form);
   });
-  
+
   document.on('ajax:complete', 'form', function(event, form) {
     if (form == event.findElement()) enableFormElements(form);
   });
