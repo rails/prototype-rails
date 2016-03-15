@@ -126,9 +126,15 @@ module PrototypeRails
     if matches
       assert true # to count the assertion
       if block_given? && !([:remove, :show, :hide, :toggle].include? rjs_type)
+        to_select = if ActionPack::VERSION::STRING > "4.2.0"
+          Nokogiri::HTML(matches.map(&:to_s).join)
+        else
+          matches
+        end
+
         begin
           @selected ||= nil
-          in_scope, @selected = @selected, matches
+          in_scope, @selected = @selected, to_select
           yield matches
         ensure
           @selected = in_scope
@@ -146,7 +152,7 @@ module PrototypeRails
       flunk args.shift || flunk_message
     end
   end
-  
+
   protected
 
   RJS_PATTERN_HTML  = "\"((\\\\\"|[^\"])*)\""
