@@ -3,16 +3,11 @@ $:.unshift(lib) unless $:.include?('lib') || $:.include?(lib)
 
 $:.unshift(File.dirname(__FILE__) + '/lib')
 
-if defined? Gem
-  Gem.source_index
-  gem 'bundler'
-else
-  require 'rubygems'
-end
 require 'bundler'
 Bundler.setup
 
 require 'test/unit'
+require 'mocha/test_unit'
 require 'active_support'
 require 'action_controller'
 require 'action_view'
@@ -30,6 +25,7 @@ require 'prototype-rails/on_load_action_view'
 FIXTURE_LOAD_PATH = File.join(File.dirname(__FILE__), 'fixtures')
 FIXTURES = Pathname.new(FIXTURE_LOAD_PATH)
 
+I18n.enforce_available_locales = false
 
 module SetupOnce
   extend ActiveSupport::Concern
