@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
 
   spec.files = %w(README.md Rakefile Gemfile MIT-LICENSE) + Dir['lib/**/*', 'vendor/**/*', 'test/**/*']
 
-  spec.add_dependency('rails', '~> 4.0')
+  spec.add_dependency('rails', '>= 4.0')
   spec.add_development_dependency('mocha')
   spec.license = "MIT"
 end
