@@ -121,10 +121,11 @@
   function handleMethod(element) {
     var method = element.readAttribute('data-method'),
         url = element.readAttribute('href'),
+        target = element.readAttribute('target') || "",
         csrf_param = $$('meta[name=csrf-param]')[0],
         csrf_token = $$('meta[name=csrf-token]')[0];
 
-    var form = new Element('form', { method: "POST", action: url, style: "display: none;" });
+    var form = new Element('form', { method: "POST", action: url, style: "display: none;", target: target });
     $(element.parentNode).insert(form);
 
     if (method !== 'post') {
