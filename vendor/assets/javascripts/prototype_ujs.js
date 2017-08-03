@@ -139,21 +139,6 @@
     form.submit();
   }
 
-  function disableFormElements(form) {
-    input = form.retrieve('rails:submit-button');
-    if (window.hiddenCommit) {
-      window.hiddenCommit.setAttribute('name', input.name);
-      window.hiddenCommit.setAttribute('value', input.value);
-    } else {
-      hiddenCommit = document.createElement('input');
-      hiddenCommit.type = 'hidden';
-      hiddenCommit.value = input.value;
-      hiddenCommit.name = input.name;
-      form.appendChild(hiddenCommit);
-    }
-    input.setValue(input.readAttribute('data-disable-with')).disable();
-  }
-
   function enableFormElements(form) {
     form.select('input[type=submit][data-disable-with]').each(function(input) {
       input.setValue(input.retrieve('rails:original-value')).enable();
@@ -198,13 +183,7 @@
     if (form.readAttribute('data-remote')) {
       handleRemote(form);
       event.stop();
-    } else {
-      disableFormElements(form);
     }
-  });
-
-  document.on('ajax:create', 'form', function(event, form) {
-    if (form == event.findElement()) disableFormElements(form);
   });
 
   document.on('ajax:complete', 'form', function(event, form) {
