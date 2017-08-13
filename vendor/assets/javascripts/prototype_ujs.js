@@ -140,18 +140,10 @@
   }
 
   function disableFormElements(form) {
-    input = form.retrieve('rails:submit-button');
-    if (window.hiddenCommit) {
-      window.hiddenCommit.setAttribute('name', input.name);
-      window.hiddenCommit.setAttribute('value', input.value);
-    } else {
-      hiddenCommit = document.createElement('input');
-      hiddenCommit.type = 'hidden';
-      hiddenCommit.value = input.value;
-      hiddenCommit.name = input.name;
-      form.appendChild(hiddenCommit);
-    }
-    input.setValue(input.readAttribute('data-disable-with')).disable();
+    form.select('input[type=submit][data-disable-with]').each(function(input) {
+      input.store('rails:original-value', input.value);
+      input.setValue(input.readAttribute('data-disable-with')).disable();
+    });
   }
 
   function enableFormElements(form) {
@@ -199,7 +191,8 @@
       handleRemote(form);
       event.stop();
     } else {
-      disableFormElements(form);
+      // Slight timeout so that the submit button gets properly serialized
+      setTimeout(function() { disableFormElements(form); }, 13);
     }
   });
 
