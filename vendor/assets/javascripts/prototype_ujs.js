@@ -139,6 +139,13 @@
     form.submit();
   }
 
+  function disableFormElements(form) {
+    form.select('input[type=submit][data-disable-with]').each(function(input) {
+      input.store('rails:original-value', input.value);
+      input.setValue(input.readAttribute('data-disable-with')).disable();
+    });
+  }
+
   function enableFormElements(form) {
     form.select('input[type=submit][data-disable-with]').each(function(input) {
       input.setValue(input.retrieve('rails:original-value')).enable();
@@ -183,7 +190,14 @@
     if (form.readAttribute('data-remote')) {
       handleRemote(form);
       event.stop();
+    } else {
+      // Slight timeout so that the submit button gets properly serialized
+      setTimeout(function() { disableFormElements(form); }, 13);
     }
+  });
+
+  document.on('ajax:create', 'form', function(event, form) {
+    if (form == event.findElement()) disableFormElements(form);
   });
 
   document.on('ajax:complete', 'form', function(event, form) {
