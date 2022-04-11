@@ -2,6 +2,8 @@ require 'action_view/helpers/javascript_helper'
 
 ActionView::Helpers::JavaScriptHelper.module_eval do
   include ActionView::Helpers::PrototypeHelper
+  undef_method :button_to_function if method_defined? :button_to_function
+  undef_method :link_to_function if method_defined? :link_to_function
 
   # Returns a button with the given +name+ text that'll trigger a JavaScript +function+ using the
   # onclick handler.

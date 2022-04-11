@@ -1,10 +1,7 @@
-require 'fileutils'
 require 'abstract_unit'
 
-CACHE_DIR = 'test_cache'
 # Don't change '/../temp/' cavalierly or you might hose something you don't want hosed
-FILE_STORE_PATH = File.join(File.dirname(__FILE__), '/../temp/', CACHE_DIR)
-ActionController::Base.page_cache_directory = FILE_STORE_PATH
+FILE_STORE_PATH = File.expand_path('../../../temp/test_cache', __FILE__)
 
 class CachingController < ActionController::Base
   abstract!
@@ -41,6 +38,6 @@ class FunctionalFragmentCachingTest < ActionController::TestCase
     xhr :get, :js_fragment_cached_with_partial
     assert_response :success
     assert_match(/Old fragment caching in a partial/, @response.body)
-    assert_match("Old fragment caching in a partial", @store.read('views/test.host/functional_caching/js_fragment_cached_with_partial'))
+    assert_match "Old fragment caching in a partial", @store.instance_variable_get('@data').values.first.value
   end
 end

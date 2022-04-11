@@ -1,4 +1,5 @@
-require 'action_controller/vendor/html-scanner'
+require 'active_support/core_ext/module/aliasing'
+require 'action_view/vendor/html-scanner'
 require 'action_dispatch/testing/assertions'
 require 'action_dispatch/testing/assertions/selector'
 
@@ -123,7 +124,7 @@ ActionDispatch::Assertions::SelectorAssertions.module_eval do
     end
 
     if matches
-      assert_block("") { true } # to count the assertion
+      assert true # to count the assertion
       if block_given? && !([:remove, :show, :hide, :toggle].include? rjs_type)
         begin
           @selected ||= nil

@@ -1,27 +1,23 @@
-lib = File.expand_path("#{File.dirname(__FILE__)}/../lib")
-$:.unshift(lib) unless $:.include?('lib') || $:.include?(lib)
+require 'rubygems'
+require 'bundler/setup'
+require 'minitest/autorun'
 
-$:.unshift(File.dirname(__FILE__) + '/lib')
-
-if defined? Gem
-  Gem.source_index
-  gem 'bundler'
-else
-  require 'rubygems'
-end
-require 'bundler'
-Bundler.setup
-
-require 'test/unit'
 require 'active_support'
+require 'active_support/test_case'
 require 'action_controller'
 require 'action_view'
 require 'action_view/testing/resolvers'
 
+module Rails
+  def self.env
+    ActiveSupport::StringInquirer.new("test")
+  end
+end
+
 require 'prototype-rails/on_load_action_controller'
 require 'prototype-rails/on_load_action_view'
 
-FIXTURE_LOAD_PATH = File.join(File.dirname(__FILE__), 'fixtures')
+FIXTURE_LOAD_PATH = File.expand_path('../../fixtures', __FILE__)
 FIXTURES = Pathname.new(FIXTURE_LOAD_PATH)
 
 
@@ -59,11 +55,11 @@ module ActiveSupport
     # have been loaded.
     setup_once do
       SharedTestRoutes.draw do
-        match ':controller(/:action)'
+        get ':controller(/:action)'
       end
 
       ActionDispatch::IntegrationTest.app.routes.draw do
-        match ':controller(/:action)'
+        get ':controller(/:action)'
       end
     end
   end
@@ -88,7 +84,7 @@ class BasicController
   def config
     @config ||= ActiveSupport::InheritableOptions.new(ActionController::Base.config).tap do |config|
       # VIEW TODO: View tests should not require a controller
-      public_dir = File.expand_path("../fixtures/public", __FILE__)
+      public_dir = "#{FIXTURE_LOAD_PATH}/public"
       config.assets_dir = public_dir
       config.javascripts_dir = "#{public_dir}/javascripts"
       config.stylesheets_dir = "#{public_dir}/stylesheets"
@@ -104,12 +100,12 @@ class ActionDispatch::IntegrationTest < ActiveSupport::TestCase
 
   def self.build_app(routes = nil)
     RoutedRackApp.new(routes || ActionDispatch::Routing::RouteSet.new) do |middleware|
-      middleware.use "ActionDispatch::ShowExceptions"
+      middleware.use "ActionDispatch::ShowExceptions", ActionDispatch::PublicExceptions.new("#{FIXTURE_LOAD_PATH}/public")
       middleware.use "ActionDispatch::Callbacks"
       middleware.use "ActionDispatch::ParamsParser"
       middleware.use "ActionDispatch::Cookies"
       middleware.use "ActionDispatch::Flash"
-      middleware.use "ActionDispatch::Head"
+      middleware.use "Rack::Head"
       yield(middleware) if block_given?
     end
   end
