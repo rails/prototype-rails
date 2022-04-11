@@ -5,7 +5,7 @@ module ActionView
       class_attribute :default_format
       self.default_format = Mime[:js]
 
-      def call(template)
+      def call(template, source = template.source)
         "update_page do |page|;#{template.source}\nend"
       end
     end

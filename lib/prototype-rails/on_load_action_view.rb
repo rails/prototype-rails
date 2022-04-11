@@ -15,9 +15,11 @@ ActionView::Base.class_eval do
 end
 
 if defined?(Rails.env) && Rails.env.test?
-  ActionView::TestCase.class_eval do
-    include ActionView::Helpers::PrototypeHelper
-    include ActionView::Helpers::ScriptaculousHelper
+  ActiveSupport::Reloader.to_prepare do
+    ActionView::TestCase.class_eval do
+      include ActionView::Helpers::PrototypeHelper
+      include ActionView::Helpers::ScriptaculousHelper
+    end
   end
 end
 
