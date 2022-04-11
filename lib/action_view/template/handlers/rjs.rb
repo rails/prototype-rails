@@ -3,9 +3,9 @@ module ActionView
     class RJS
       # Default format used by RJS.
       class_attribute :default_format
-      self.default_format = Mime::JS
+      self.default_format = Mime[:js]
 
-      def call(template)
+      def call(template, source = template.source)
         "update_page do |page|;#{template.source}\nend"
       end
     end
